@@ -33,9 +33,60 @@ making more desirable than other applicayions.
     4. **git** - a version control system for software projects which allows access from different locations and restoring old versions.
   
   ## Setup
-  Initializing the password store 
+  1. Initializing the password store 
   ` ` `
   pass init "sally.mukami@womentechsters.org"
   ` ` `
-
+  2. creating and generating GPG keys
+  ` ` `
+  gpg --full-generate-key
+  *GnuPG will create a user ID*
+  Real name:
+  email address
+  Comment
+  ` ` `
+  3. List your keys and take note of the secret key ID
+  ` ` `
+  gpg --list-secret-keys --keyid-format LONG
+  sec 4096R/ANHGFGRFGRBMGNKLDFOGFIDGYURFYRGRGMJNJJ 2021-06-26 uid
+  Sally k <sajhgyd@womentechsers.com>
+  ` ` `
+  4. with the ID now initiate the pass datastore
+    ` ` `
+    pass init 'uid'
+    ` ` `
+  5. You can now Generate and fetch passwords from RSA4096-ENCRYPTED password store.
+  
+  ## Workflow
+  _Enter passwords_
+  
+  ` ` `
+  pass insert socialmedia/somebody@techsters.com/LinkedIn
+  pass insert socialmedia/somebody@techsters.com/LinkedIn < password.txt
+  ` ` `
+  Here **socialmedia** is the directory that holds all the social media accounts and LinkeIn is the name of the account
+   
+   
+   _Retrieving passwords_
+   
+   ` ` `
+   pass socialmedia/somebody@techsters.com/LinkedIn
+   ` ` `
+   Writes the password to stdout
+   
+    ` ` `
+    pass -c socialmedia/somebody@techsters.com/LinkedIn
+    ` ` `
+    Writes the retrieved password to the clipboard for 45 seconds
+    
+  _Generating Passwords_
+ ` ` `
+ pass generate socialmedia/somebody@techsters.com/LinkedIn 12
+ ` ` `
+ _Saving the password store_
+ ` ` `
+ pass git pull
+ pass git push
+ ` ` `
+ 
 
